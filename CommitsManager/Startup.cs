@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Linq;
+using Octokit;
 
 namespace SimpleTalk_GitHubOAuth2
 {
@@ -74,6 +75,17 @@ namespace SimpleTalk_GitHubOAuth2
                    };
                });
         }
+        //async public void TEST()
+        //{
+        //    var owner = "owner-username";
+        //    var repo = "repository-name";
+        //    var branch = "master"; // или другая ветка, если необходимо
+
+        //    var commits = await client.Repository.Commit.GetAll(owner, repo, new CommitRequest
+        //    {
+        //        Sha = branch
+        //    });
+        //}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

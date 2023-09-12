@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleTalk_GitHubOAuth2", "SimpleTalk_GitHubOAuth22\SimpleTalk_GitHubOAuth2.csproj", "{64A05F2D-A199-4B1A-9374-8F8B472EC724}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommitsManager", "CommitsManager\CommitsManager.csproj", "{64A05F2D-A199-4B1A-9374-8F8B472EC724}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
