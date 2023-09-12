@@ -774,6 +774,7 @@ progress {
     padding-left: calc(var(--bs-gutter-x) * 0.5);
     margin-right: auto;
     margin-left: auto;
+    vertical-align: central;
 }
 
 @media (min-width: 576px) {
@@ -14285,3 +14286,18 @@ legend {
     .card .h6 {
         text-shadow: 0 0 1px rgba(255, 255, 255, 0.6), 0 0 3px rgba(255, 255, 255, 0.5), 0 0 0.5rem rgba(255, 255, 255, 0.3), 0 0 2rem rgba(255, 255, 255, 0.2);
     }
+
+.github-logo {
+    max-width: 300px; /* Установите желаемую максимальную ширину */
+    max-height: 300px; /* Установите желаемую максимальную высоту */
+    width: auto; /* Сохраняет соотношение сторон */
+    height: auto; /* Сохраняет соотношение сторон */
+    display: block; /* Убедитесь, что изображение обрабатывается как блочный элемент */
+    margin: 0 auto; /* Автоматически центрирует изображение по горизонтали */
+    background: none; /* Устанавливает прозрачный фон */
+    border: none; /* Убирает границу */
+}
+.footerContainer{
+    vertical-align: bottom;
+
+}

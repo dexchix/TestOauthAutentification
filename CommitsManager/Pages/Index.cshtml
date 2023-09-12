@@ -4,12 +4,23 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="row">
+<div class="row" style="text-align:center">
     @if (!User.Identity.IsAuthenticated)
     {
-        <a>Вы не авторизованы</a>
-        <img src = "~/images/github1.png" width = "100" height = "100" />
-        <a asp-action="Login" asp-controller="Auth" class="btn btn-outline-primary">Авторизоваться с помощью GitHub</a>
+        @*         <a>Вы не авторизованы
+
+    </a>
+    <img src="~/images/github1.png" class="github-logo" />
+    <a asp-action="Login" asp-controller="Auth" class="btn btn-outline-primary">Авторизоваться с помощью GitHub</a> *@
+
+        <div style="text-align: center;">
+            <p>Вы не авторизованы</p>
+            <img src="~/images/github1.png" class="github-logo" />
+            <a asp-action="Login" asp-controller="Auth" class="btn btn-outline-primary">Авторизоваться с помощью GitHub</a>
+        </div>
+   
+         
+        
     }
     else
     {
