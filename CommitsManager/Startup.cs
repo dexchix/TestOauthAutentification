@@ -14,7 +14,7 @@ using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Linq;
 using Octokit;
 
-namespace SimpleTalk_GitHubOAuth2
+namespace CommitsManager
 {
     public class Startup
     {

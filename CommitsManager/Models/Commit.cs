@@ -1,4 +1,4 @@
-﻿namespace SimpleTalk_GitHubOAuth2.Models
+﻿namespace CommitsManager.Models
 {
     public class Commit
     {
