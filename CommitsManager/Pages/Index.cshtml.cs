@@ -25,9 +25,23 @@ namespace SimpleTalk_GitHubOAuth2.Pages
                 string accessToken = await HttpContext.GetTokenAsync("access_token");
 
                 var github = new GitHubClient(new ProductHeaderValue("AspNetCoreGitHubAuth"), new InMemoryCredentialStore(new Credentials(accessToken)));
-                Repositories = await github.Repository.GetAllForCurrent();
 
-                StarredRepos = await github.Activity.Starring.GetAllForCurrent();
+                var repos= await github.Repository.GetAllForCurrent();
+
+                var commits = github.Repository.Commit.GetAll(repos[1].Id);
+
+                Repositories = repos;
+
+              
+
+
+
+
+                var startedReposit = await github.Activity.Starring.GetAllForCurrent();
+
+                StarredRepos = startedReposit;
+
+                
 
                 Followers = await github.User.Followers.GetAllForCurrent();
                 Following = await github.User.Followers.GetAllFollowingForCurrent();

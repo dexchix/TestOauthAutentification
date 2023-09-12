@@ -5,6 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="C:\Users\ORPO\.nuget\packages\bootstrap\5.3.1\contentFiles\any\any\wwwroot\css\bootstrap.css" />
+    <Content Remove="C:\Users\ORPO\.nuget\packages\bootstrap\5.3.1\contentFiles\any\any\wwwroot\css\bootstrap.css.map" />
+    <Content Remove="C:\Users\ORPO\.nuget\packages\bootstrap\5.3.1\contentFiles\any\any\wwwroot\css\bootstrap.min.css" />
+    <Content Remove="C:\Users\ORPO\.nuget\packages\bootstrap\5.3.1\contentFiles\any\any\wwwroot\css\bootstrap.min.css.map" />
+    <Content Remove="C:\Users\ORPO\.nuget\packages\bootstrap\5.3.1\contentFiles\any\any\wwwroot\css\bootstrap.rtl.css" />
+    <Content Remove="C:\Users\ORPO\.nuget\packages\bootstrap\5.3.1\contentFiles\any\any\wwwroot\css\bootstrap.rtl.css.map" />
+    <Content Remove="C:\Users\ORPO\.nuget\packages\bootstrap\5.3.1\contentFiles\any\any\wwwroot\css\bootstrap.rtl.min.css" />
+    <Content Remove="C:\Users\ORPO\.nuget\packages\bootstrap\5.3.1\contentFiles\any\any\wwwroot\css\bootstrap.rtl.min.css.map" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="bootstrap" Version="5.3.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Octokit" Version="0.47.0" />
