@@ -28,7 +28,7 @@ namespace SimpleTalk_GitHubOAuth2.Pages
 
                 var repos= await github.Repository.GetAllForCurrent();
 
-                var commits = github.Repository.Commit.GetAll(repos[1].Id);
+                var commits = github.Repository.Commit.GetAll(repos[1].Id).Result;
 
                 Repositories = repos;
 
