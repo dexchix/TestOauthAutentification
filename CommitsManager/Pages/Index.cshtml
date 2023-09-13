@@ -7,12 +7,6 @@
 <div class="row" style="text-align:center">
     @if (!User.Identity.IsAuthenticated)
     {
-        @*         <a>Вы не авторизованы
-
-    </a>
-    <img src="~/images/github1.png" class="github-logo" />
-    <a asp-action="Login" asp-controller="Auth" class="btn btn-outline-primary">Авторизоваться с помощью GitHub</a> *@
-
         <div style="text-align: center;">
             <p>Вы не авторизованы</p>
             <img src="~/images/github1.png" class="github-logo" />
@@ -24,7 +18,20 @@
     }
     else
     {
-        <div id="accordion" class="container-fluid">
+        <div class="repository">
+            <h3>Заполните поля</h3>
+            <p>
+                <label>Owner</label><br />
+                <input type="text" />
+
+                <label>Repo</label> <br />
+                <input type="text" />
+           
+            </p>
+            <input type="submit" value="Получить" />
+        </div>
+
+       @*  <div id="accordion" class="container-fluid">
             <div class="card">
                 <div class="card-header" id="headingOne">
                     <h5 class="mb-0">
@@ -102,6 +109,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> *@
     }
 </div>
