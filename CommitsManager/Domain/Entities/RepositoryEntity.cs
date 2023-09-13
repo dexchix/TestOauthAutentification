@@ -2,11 +2,11 @@
 
 namespace CommitsManager.Domain.Entities
 {
-    public class Repository
+    public class RepositoryEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Owner { get; set; }
-        public ICollection<Commit> Commits { get; set; }
+        public ICollection<CommitEntity> Commits { get; set; }
     }
 }

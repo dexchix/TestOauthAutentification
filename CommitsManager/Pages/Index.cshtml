@@ -12,45 +12,20 @@
             <img src="~/images/github1.png" class="github-logo" />
             <a asp-action="Login" asp-controller="Auth" class="btn btn-outline-primary">Авторизоваться с помощью GitHub</a>
         </div>
-
-
-
     }
     else
     {
-        <style>
-            .repository label {
-                display: block;
-                width: 100px; /* Установите нужную ширину для label */
-                float: left;
-            }
-
-            .repository input {
-                display: block;
-                margin-left: 110px; /* Отступ справа от label для input */
-                margin-bottom: 10px; /* Добавьте нужный вертикальный отступ между input */
-            }
-
-            .repository::after {
-                content: "";
-                display: table;
-                clear: both; /* Чтобы предотвратить перекрытие следующих элементов */
-            }
-        </style>
-        <div class="repository">
-            <form method="post" action="~/Repos/GetCommits">
-                <h3>Заполните поля</h3>
-                <p>
-                    <label>Owner</label><br />
-                    <input type="text" />
-
-                    <label>Repo</label> <br />
-                    <input type="text" />
-
-                </p>
-                <a class="btn btn-outline-primary">Получить</a>
-            </form>
-        </div>
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="FormData.Owner"></label>
+                <input asp-for="FormData.Owner" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="FormData.Repository"></label>
+                <input asp-for="FormData.Repository" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-primary">Отправить</button>
+        </form>
 
         @*  <div id="accordion" class="container-fluid">
     <div class="card">

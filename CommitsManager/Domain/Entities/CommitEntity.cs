@@ -2,7 +2,7 @@
 
 namespace CommitsManager.Domain.Entities
 {
-    public class Commit
+    public class CommitEntity
     {
         public int Id { get; set; }
         public string Message { get; set; }
@@ -11,6 +11,6 @@ namespace CommitsManager.Domain.Entities
 
         public int RepositoryId { get; set; }
 
-        public Repository Repository { get; set; }
+        public RepositoryEntity Repository { get; set; }
     }
 }

@@ -11,5 +11,6 @@ namespace SimpleTalk_GitHubOAuth2.Controllers
         {
             return Challenge(new AuthenticationProperties() { RedirectUri = returnUrl });
         }
+        
     }
 }
