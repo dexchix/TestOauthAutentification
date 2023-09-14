@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CommitsManager.Migrations
 {
-    public partial class inintial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,6 +29,8 @@ namespace CommitsManager.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Author = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateCreate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    SHA = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RepositoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

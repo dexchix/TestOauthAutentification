@@ -26,7 +26,37 @@
             </div>
             <button type="submit" class="btn btn-primary">Отправить</button>
         </form>
-
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Автор</th>
+                    <th>Дата</th>
+                    <th>Сообщение</th>
+                    <th>SHA</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var commit in Model.Commits)
+                {
+                    <tr>
+                        <td>@commit.Author</td>
+                        <td>@commit.DateCreate</td>
+                        <td>@commit.Message</td>
+                        <td>@commit.SHA</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="pagination">
+            <ul class="pagination">
+                @for (var i = 1; i <= Model.PageCount; i++)
+                {
+                    <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
+                        <a class="page-link" href="?page=@i">@i</a>
+                    </li>
+                }
+            </ul>
+        </div>
         @*  <div id="accordion" class="container-fluid">
     <div class="card">
     <div class="card-header" id="headingOne">

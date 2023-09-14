@@ -31,40 +31,54 @@ namespace SimpleTalk_GitHubOAuth2.Pages
 
         public IReadOnlyList<User> Following { get; set; }
 
-        public IndexModel()
+
+        public List<CommitEntity> Commits { get; set; }
+        public int CurrentPage { get; set; } = 1;
+        public int PageSize { get; set; } = 20;
+        public int PageCount { get; set; }
+
+        public void OnGet(int? page)
         {
-            var config = new MapperConfiguration(cfg => cfg.AddProfile<MappingProfile>());
-            mapper = config.CreateMapper();
+            var dbContext = new AppDBContext();
+
+            CurrentPage = page ?? 1;
+
+            int skip = (CurrentPage - 1) * PageSize;
+            Commits = dbContext.Commits.Skip(skip).Take(PageSize).ToList();
+
+            int totalCommits = dbContext.Commits.Count();
+            PageCount = (int)Math.Ceiling((double)totalCommits / PageSize);
         }
-        public async Task OnGetAsync()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                string accessToken = await HttpContext.GetTokenAsync("access_token");
 
-                var github = new GitHubClient(new ProductHeaderValue("AspNetCoreGitHubAuth"), new InMemoryCredentialStore(new Credentials(accessToken)));
+        //public async Task OnGetAsync()
+        //{
+        //    if (User.Identity.IsAuthenticated)
+        //    {
+        //        string accessToken = await HttpContext.GetTokenAsync("access_token");
 
-                var repos = await github.Repository.GetAllForCurrent();
+        //        var github = new GitHubClient(new ProductHeaderValue("AspNetCoreGitHubAuth"), new InMemoryCredentialStore(new Credentials(accessToken)));
 
-                var commits = github.Repository.Commit.GetAll(repos[1].Id).Result;
+        //        var repos = await github.Repository.GetAllForCurrent();
 
-                Repositories = repos;
+        //        var commits = github.Repository.Commit.GetAll(repos[1].Id).Result;
 
-
-
+        //        Repositories = repos;
 
 
 
-                var startedReposit = await github.Activity.Starring.GetAllForCurrent();
-
-                StarredRepos = startedReposit;
 
 
 
-                Followers = await github.User.Followers.GetAllForCurrent();
-                Following = await github.User.Followers.GetAllFollowingForCurrent();
-            }
-        }
+        //        var startedReposit = await github.Activity.Starring.GetAllForCurrent();
+
+        //        StarredRepos = startedReposit;
+
+
+
+        //        Followers = await github.User.Followers.GetAllForCurrent();
+        //        Following = await github.User.Followers.GetAllFollowingForCurrent();
+        //    }
+        //}
         public async Task<IActionResult> OnPostAsync()
         {
             if (ModelState.IsValid && User.Identity.IsAuthenticated)
@@ -77,16 +91,27 @@ namespace SimpleTalk_GitHubOAuth2.Pages
                 var github = new GitHubClient(new ProductHeaderValue("AspNetCoreGitHubAuth"), new InMemoryCredentialStore(new Credentials(accessToken)));
 
                 var repos = await github.Repository.GetAllForCurrent();
-                foreach(var repo in repos )
+                foreach (var repo in repos)
                 {
-                    if(repo.Owner.Login == owner && repo.Name == repository)
+                    if (repo.Owner.Login == owner && repo.Name == repository)
                     {
                         var commits = github.Repository.Commit.GetAll(repo.Id).Result;
 
+                        var repoEntity = new RepositoryEntity() { Name = repo.Name, Owner = repo.Owner.Login };
+                        var commitsEntity = EfConverter.ConvertCommits(commits, repoEntity);
+
                         var dbContext = new AppDBContext();
 
-                        var repos1 = new RepositoryEntity() { Name = repo.Name, Owner = repo.Owner.Login };
-                        
+                        foreach (var commit in commitsEntity)
+                        {
+                            dbContext.Commits.Add(commit);
+                        }
+                        dbContext.Repositories.Add(repoEntity);
+
+                        dbContext.SaveChanges();
+
+                        var commitsForRepository = dbContext.Commits.Where(c => c.RepositoryId == repoEntity.Id).ToList();
+
                     }
                 }
             }
