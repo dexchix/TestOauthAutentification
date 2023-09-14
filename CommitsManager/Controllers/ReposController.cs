@@ -50,11 +50,8 @@ namespace CommitsManager.Controllers
 
                 await dbContext.SaveChangesAsync();
             }
-            return View();
-            ////return RedirectToAction("Index"); // Перенаправление обратно на страницу с коммитами после удаления.
-            //ViewData["Title"] = "Моя страница";
-            //var model = new IndexModel();
-            //return View("/Pages/Index.cshtml", model);
+            //return RedirectToPage("~/Pages/Index");
+            return LocalRedirect("/");
         }
     }
 }

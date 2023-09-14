@@ -17,7 +17,8 @@ using Octokit.Internal;
 namespace SimpleTalk_GitHubOAuth2.Pages
 {
     public class IndexModel : PageModel
-    {
+    { 
+
         IMapper mapper;
 
         [BindProperty]
