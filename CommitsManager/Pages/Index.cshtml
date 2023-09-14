@@ -2,139 +2,76 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+    var awd = ViewData;
+}
+@if (Model != null)
+{
+    <div class="row" style="text-align:center">
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <div style="text-align: center;">
+                <p>Вы не авторизованы</p>
+                <img src="~/images/github1.png" class="github-logo" />
+                <a asp-action="Login" asp-controller="Auth" class="btn btn-outline-primary">Авторизоваться с помощью GitHub</a>
+            </div>
+        }
+        else
+        {
+            <form method="post">
+                <div class="form-group">
+                    <label asp-for="FormData.Owner"></label>
+                    <input asp-for="FormData.Owner" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="FormData.Repository"></label>
+                    <input asp-for="FormData.Repository" class="form-control" />
+                </div>
+                <button type="submit" class="btn btn-primary">Отправить</button>
+            </form>
+
+            @*        <form method="post" action="/Repos/DeleteSelectedCommits">
+    <table>
+    <!-- Ваши коммиты с чекбоксами -->
+    </table>
+    <button type="submit">Удалить выбранные коммиты</button>
+    </form>*@
+            <form method="post" action="/Repos/DeleteSelectedCommits">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th> </th>
+                            <th>Автор</th>
+                            <th>Дата</th>
+                            <th>Сообщение</th>
+                            <th>SHA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var commit in Model.Commits)
+                        {
+                            <tr>
+                                <td><input type="checkbox" name="selectedItems[]" id="@commit.Id" value="@commit.Id" /></td>
+                                <td>@commit.Author</td>
+                                <td>@commit.DateCreate</td>
+                                <td>@commit.Message</td>
+                                <td>@commit.SHA</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <button type="submit">Удалить выбранные коммиты</button>
+            </form>
+            <div class="pagination">
+                <ul class="pagination">
+                    @for (var i = 1; i <= Model.PageCount; i++)
+                    {
+                        <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
+                            <a class="page-link" href="?page=@i">@i</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+    </div>
 }
 
-<div class="row" style="text-align:center">
-    @if (!User.Identity.IsAuthenticated)
-    {
-        <div style="text-align: center;">
-            <p>Вы не авторизованы</p>
-            <img src="~/images/github1.png" class="github-logo" />
-            <a asp-action="Login" asp-controller="Auth" class="btn btn-outline-primary">Авторизоваться с помощью GitHub</a>
-        </div>
-    }
-    else
-    {
-        <form method="post">
-            <div class="form-group">
-                <label asp-for="FormData.Owner"></label>
-                <input asp-for="FormData.Owner" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="FormData.Repository"></label>
-                <input asp-for="FormData.Repository" class="form-control" />
-            </div>
-            <button type="submit" class="btn btn-primary">Отправить</button>
-        </form>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Автор</th>
-                    <th>Дата</th>
-                    <th>Сообщение</th>
-                    <th>SHA</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var commit in Model.Commits)
-                {
-                    <tr>
-                        <td>@commit.Author</td>
-                        <td>@commit.DateCreate</td>
-                        <td>@commit.Message</td>
-                        <td>@commit.SHA</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-        <div class="pagination">
-            <ul class="pagination">
-                @for (var i = 1; i <= Model.PageCount; i++)
-                {
-                    <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
-                        <a class="page-link" href="?page=@i">@i</a>
-                    </li>
-                }
-            </ul>
-        </div>
-        @*  <div id="accordion" class="container-fluid">
-    <div class="card">
-    <div class="card-header" id="headingOne">
-    <h5 class="mb-0">
-    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse-repos" aria-expanded="true" aria-controls="collapse-repos">
-    Repos
-    </button>
-    </h5>
-    </div>
-
-    <div id="collapse-repos" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-    <div class="card-body">
-    <ul>
-    @foreach (var repo in Model.Repositories)
-    {
-    <li><a href="@repo.HtmlUrl">@repo.FullName</a></li>
-    }
-    </ul>
-    </div>
-    </div>
-    </div>
-    <div class="card">
-    <div class="card-header" id="headingTwo">
-    <h5 class="mb-0">
-    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse-starred" aria-expanded="false" aria-controls="collapse-starred">
-    Starred Repositories
-    </button>
-    </h5>
-    </div>
-    <div id="collapse-starred" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-    <div class="card-body">
-    <ul>
-    @foreach (var repo in Model.StarredRepos)
-    {
-    <li><a href="@repo.HtmlUrl">@repo.FullName</a></li>
-    }
-    </ul>
-    </div>
-    </div>
-    </div>
-    <div class="card">
-    <div class="card-header" id="headingThree">
-    <h5 class="mb-0">
-    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse-followers" aria-expanded="false" aria-controls="collapse-followers">
-    Followers
-    </button>
-    </h5>
-    </div>
-    <div id="collapse-followers" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-    <div class="card-body">
-    <ul>
-    @foreach (var follower in Model.Followers)
-    {
-    <li><a href="@follower.HtmlUrl">@follower.Login</a></li>
-    }
-    </ul>
-    </div>
-    </div>
-    </div>
-    <div class="card">
-    <div class="card-header" id="headingFour">
-    <h5 class="mb-0">
-    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse-following" aria-expanded="false" aria-controls="collapse-following">
-    Following
-    </button>
-    </h5>
-    </div>
-    <div id="collapse-following" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
-    <div class="card-body">
-    <ul>
-    @foreach (var follower in Model.Followers)
-    {
-    <li><a href="@follower.HtmlUrl">@follower.Login</a></li>
-    }
-    </ul>
-    </div>
-    </div>
-    </div>
-    </div> *@
-    }
-</div>

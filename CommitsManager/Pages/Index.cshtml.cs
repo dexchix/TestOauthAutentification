@@ -117,6 +117,26 @@ namespace SimpleTalk_GitHubOAuth2.Pages
             }
             return Page();
         }
+        public async Task<IActionResult> DeleteSelectedCommits(List<string> selectedCommits)
+        {
+            var dbContext = new AppDBContext();
+            if (selectedCommits != null && selectedCommits.Any())
+            {
+                foreach (var commitId in selectedCommits)
+                {
+                    // Здесь реализуйте удаление коммита из вашей базы данных, используя Entity Framework или другой ORM.
+                    // Пример:
+                    var commitToDelete = await dbContext.Commits.FindAsync(commitId);
+                    if (commitToDelete != null)
+                    {
+                        dbContext.Commits.Remove(commitToDelete);
+                    }
+                }
+
+                await dbContext.SaveChangesAsync();
+            }
+            return Page();
+        }
     }
     public class MyFormData
     {
