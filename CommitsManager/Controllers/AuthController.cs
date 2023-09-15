@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 
-namespace SimpleTalk_GitHubOAuth2.Controllers
+namespace CommitsManager.Controllers
 {
     [Route("[controller]/[action]")]
     public class AuthController : Controller

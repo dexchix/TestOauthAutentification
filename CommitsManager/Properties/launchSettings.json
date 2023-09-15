@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "SimpleTalk_GitHubOAuth2": {
+    "CommitsManager": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

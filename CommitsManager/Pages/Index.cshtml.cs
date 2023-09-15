@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using AutoMapper;
 using CommitsManager.Domain;
 using CommitsManager.Domain.Entities;
 using CommitsManager.Helpers;
@@ -14,7 +10,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Octokit;
 using Octokit.Internal;
 
-namespace SimpleTalk_GitHubOAuth2.Pages
+namespace CommitsManager.Pages
 {
     public class IndexModel : PageModel
     {

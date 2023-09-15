@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace SimpleTalk_GitHubOAuth2.Pages
+namespace CommitsManager.Pages 
 {
     public class PrivacyModel : PageModel
     {

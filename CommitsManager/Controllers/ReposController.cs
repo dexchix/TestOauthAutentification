@@ -1,10 +1,5 @@
 ﻿using CommitsManager.Domain;
-using CommitsManager.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using SimpleTalk_GitHubOAuth2.Pages;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
