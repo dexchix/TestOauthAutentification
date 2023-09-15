@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Linq;
 using Octokit;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace CommitsManager
 {
@@ -78,19 +79,7 @@ namespace CommitsManager
                    };
                });
         }
-        //async public void TEST()
-        //{
-        //    var owner = "owner-username";
-        //    var repo = "repository-name";
-        //    var branch = "master"; // или другая ветка, если необходимо
 
-        //    var commits = await client.Repository.Commit.GetAll(owner, repo, new CommitRequest
-        //    {
-        //        Sha = branch
-        //    });
-        //}
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -115,6 +104,12 @@ namespace CommitsManager
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
+
+                //endpoints.MapControllerRoute(
+                //     name: "loadCommits",
+                //     pattern: "Repos/LoadCommits", // URL-шаблон без {page?}
+                //     defaults: new { controller = "Repos", action = "LoadCommits" });
+
             });
         }
     }

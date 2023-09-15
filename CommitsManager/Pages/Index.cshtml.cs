@@ -25,50 +25,19 @@ namespace SimpleTalk_GitHubOAuth2.Pages
         [BindProperty]
         public MyFormData FormData { get; set; }
 
-        public IReadOnlyList<Repository> Repositories { get; set; }
-
-        public IReadOnlyList<Repository> StarredRepos { get; set; }
-
-        public IReadOnlyList<User> Followers { get; set; }
-
-        public IReadOnlyList<User> Following { get; set; }
-
-
         public List<CommitEntity> Commits { get; set; }
-        public int CurrentPage { get; set; } = 1;
-        public int PageSize { get; set; } = 20;
-        public int PageCount { get; set; }
 
-        public async void OnGet(int? page)
+        public void OnGet(int? page)
         {
-            //var dbContext = new AppDBContext();
-
-            //CurrentPage = page ?? 1;
-
-            //var commitsForRepository = _dbContext.Commits.Where(c => c.RepositoryId == repoEntity.Id).ToList();
-            //int skip = (CurrentPage - 1) * PageSize;
-            //Commits = dbContext.Commits.Skip(skip).Take(PageSize).ToList();
-
-            //int totalCommits = dbContext.Commits.Count();
-            //PageCount = (int)Math.Ceiling((double)totalCommits / PageSize);
-
             if (_selectedRepository != null)
             {
-                CurrentPage = page ?? 1;
-                int skip = (CurrentPage - 1) * PageSize;
-                Commits = _dbContext.Commits.Where(c => c.RepositoryId == _selectedRepository)
-                                           .Skip(skip)
-                                           .Take(PageSize)
-                                           .ToList();
-
-                int totalCommits = _dbContext.Commits.Count(c => c.RepositoryId == _selectedRepository);
-                PageCount = (int)Math.Ceiling((double)totalCommits / PageSize);
+               
+                Commits = _dbContext.Commits.Where(c => c.RepositoryId == _selectedRepository).ToList();
             }
             else
             {
                 Commits = new List<CommitEntity>();
             }
-
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -102,7 +71,6 @@ namespace SimpleTalk_GitHubOAuth2.Pages
 
                     _dbContext.SaveChanges();
 
-                    //var commitsForRepository = _dbContext.Commits.Where(c => c.RepositoryId == repoEntity.Id).ToList();
                     _selectedRepository = repoEntity.Id;
                 }
                 else if (repo != null && repoExistInDB)
